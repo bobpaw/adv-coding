@@ -1,5 +1,7 @@
+##
 ## The bean game. Run in python 3.
-## Author: Jason Kolbly - jason@rscheme.org
+## Author: Jason Kolbly <jason@rscheme.org>
+##
 
 print ("Beans are cool!!!")
 

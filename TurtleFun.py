@@ -1,5 +1,7 @@
+##
 ## Making some patterns with python turtles. Run in python 3.
-## Author: Jason Kolbly - jason@rscheme.org
+## Author: Jason Kolbly <jason@rscheme.org>
+##
 
 import turtle
 
