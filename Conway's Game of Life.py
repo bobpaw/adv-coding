@@ -31,10 +31,14 @@ for x in range(len(yes_synonyms)):
         
 # If you aren't preloading, ask if you're importing
 if not preload_boolean:
+    # Ask if you wan to import
     import_string = input("Do you want to import a file? ")
+    
+    # Compare the string to yes_synonyms
     for x in range(len(yes_synonyms)):
         if yes_synonyms[x-1] in import_string:
             import_boolean = True
+    
     # If you're not importing, decide on board properties
     if not import_boolean:
         board_width = int(input("What should the board width be? "))
@@ -48,6 +52,7 @@ board_live_counts = []
 # IMPORTANT: ARRAY OF VIABLE OPTIONS TO PRELOAD WITH
 preload_options = ["glider", "glider gun", "pentomino"]
 
+# Define preload as empty string
 preload = ""
 
 # Save the state as a .txt file with board saved as an array of arrays
@@ -315,81 +320,125 @@ def turn():
     for x in range(len(board)):
         board_live_counts[x] = [0] * (len(board_live_counts[x]))
     
-    
+    # Run for all elements of list, and all elements of sublists
     for x in range(len(board)):
         for y in range(len(board[x])):
+            
+            # Increase board_live_counts if the tile to the left is alive
             if x > 0:
                 if board[x-1][y] == 1:
                     board_live_counts[x][y] += 1
+                    
+            # Increase board_live_counts if the tile to the right is alive
             if x < len(board)-1:
                 if board[x+1][y] == 1:
                     board_live_counts[x][y] += 1
+                    
+            # Increase board_live_counts if the tile above is alive
             if y > 0:
                 if board[x][y-1] == 1:
                     board_live_counts[x][y] += 1
+                    
+            # Increase board_live_counts if the tile below is alive
             if y < len(board[x])-1:
                 if board[x][y+1] == 1:
                     board_live_counts[x][y] += 1
+                    
+            # Increase board_live_counts if the tile to the bottom right is alive
             if y < len(board[x])-1 and x < len(board)-1:
                 if board[x+1][y+1] == 1:
                     board_live_counts[x][y] += 1
+                    
+            # Increase board_live_counts if the tile to the top right is alive
             if y > 0 and x < len(board)-1:
                 if board[x+1][y-1] == 1:
                     board_live_counts[x][y] += 1
+                    
+            # Increase board_live_counts if the tile to the bottom left is alive
             if y < len(board[x])-1 and x > 0:
                 if board[x-1][y+1] == 1:
                     board_live_counts[x][y] += 1
+                    
+            # Increase board_live_counts if the tile to the top left is alive
             if y > 0 and x > 0:
                 if board[x-1][y-1] == 1:
                     board_live_counts[x][y] += 1
-
+    
+    # Run for all elements of list and sublists
     for x in range(len(board)):
         for y in range(len(board[x])):
+            # Run if tile is alive
             if board[x][y] == 1:
+                # If board_live_counts is 2 or 3, the tile will survive
                 if board_live_counts[x][y] < 2:
                     board[x][y] = 0
                 elif board_live_counts[x][y] <= 3:
                     board[x][y] = 1
                 else:
                     board[x][y] = 0
+                    
+            # Run if the tile is dead
             else:
+                # If there are exactly 3 alive neighbors, it comes alive
                 if board_live_counts[x][y] == 3:
                     board[x][y] = 1
+                    
+    # Delay for a tenth of a second
     time.sleep(0.1)
 
+# The main loop
 while True:
     for event in pygame.event.get():
+        # If the red X is clicked, quit the game
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
+        
+        # Run if you press a key
         if event.type == pygame.KEYDOWN:
+            # Run if you press space
             if event.key == pygame.K_SPACE:
+                # It it's already paused, unpause it
                 if paused == True:
                     paused = False
                     pygame.display.set_caption("This is Conway's game of life!")
+                # If it's unpaused, pause it
                 else:
                     pygame.display.set_caption("PAUSED")
                     paused = True
+            # Run if you press s, then run save_state function
             if event.key == pygame.K_s:
                 save_state()
-            if event.key == pygame.K_w:
-                print ("w")
+        
+        # Run if you clicked the mouse
         if event.type == pygame.MOUSEBUTTONDOWN:
+            # Set mouse_position to the mouse coordinates
             mouse_position = pygame.mouse.get_pos()
+            
+            # If the mouse is on the map, run
             if mouse_position[0] > 0 and mouse_position[1] > 0 and mouse_position[0] < tile_size*board_width and mouse_position[1] < tile_size*board_height:
+                # Get the position of the tile that was clicked
                 pressed_location = [int(m.floor(mouse_position[0]/tile_size)),int(m.floor(mouse_position[1]/tile_size))]
-                #print (str(pressed_location))
+                
+                # If the pressed location is alive, make it dead
                 if board[pressed_location[1]][pressed_location[0]] != 1:
                         board[pressed_location[1]][pressed_location[0]] = 1
+                # If the pressed location is dead, make it alive
                 else:
                         board[pressed_location[1]][pressed_location[0]] = 0
-
+    
+    # If it is unpaused, run the turn function
     if paused == False:
         turn()
     
+    # Draw the background
     draw_background()
+    
+    # Draw the tiles for all list elements and sublists
     for x in range(len(board)):
         for y in range(len(board[x])):
             if board[x][y] == 1:
-                pygame.draw.rect(screen, white, [y*tile_size,x*tile_size,tile_size,tile_size])    
+                pygame.draw.rect(screen, white, [y*tile_size,x*tile_size,tile_size,tile_size])
+                
+    # Update the display
     pygame.display.update()
