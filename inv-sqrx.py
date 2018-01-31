@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 ##
 ## Copy of family toolkit functions for 1/(x^2)
 ## Python version... shouldn't? matter for this one

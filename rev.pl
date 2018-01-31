@@ -1,12 +1,21 @@
+#!/usr/bin/perl
+
 ##
 ## Reverse single command line argument with perl
 ## Author: Aiden Woodruff <aiden.woodruff@gmail.com>
 ##
 
-
-#!/usr/bin/perl
 use strict;
 use warnings;
-my $string = shift;
+
+my $string;
+
+if (@ARGV != 0) {
+  $string = shift;
+} else {
+  $string = "";
+}
+
 $string = reverse $string;
-print "$string";
+
+print "$string\n";

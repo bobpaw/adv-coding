@@ -1,10 +1,10 @@
+#!/usr/bin/python3
+
 ##
 ## Black bean game. Give launching permissions and execute or execute
 ## with Python3.
 ## Author: Aiden Woodruff <aiden.woodruff@gmail.com>
 ##
-
-#!/usr/bin/python3
 
 import random
 import time

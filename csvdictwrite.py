@@ -1,9 +1,9 @@
+#!/usr/bin/python3
+
 ##
 ## Write data to file to be read by associated reader
 ## Author: Aiden Woodruff <aiden.woodruff@gmail.com
 ##
-
-#!/usr/bin/python3
 
 import csv
 

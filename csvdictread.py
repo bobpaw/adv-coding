@@ -1,9 +1,9 @@
+#!/usr/bin/python3
+
 ##
 ## Reads file made by the associated `csvdictwrite.py` file and prints
 ## Author: Aiden Woodruff <aiden.woodruff@gmail.com>
 ##
-
-#!/usr/bin/python3
 
 import csv
 
