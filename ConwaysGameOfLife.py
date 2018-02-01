@@ -55,18 +55,28 @@ preload_options = ["glider", "glider gun", "pentomino"]
 # Define preload as empty string
 preload = ""
 
-# Save the state as a .txt file with board saved as an array of arrays
+# Save the state as a .rle file with board saved in run length encoded form
 def save_state():
     # Ask for name of the save
-    save_name = input("What should we save it as? (Don't include an extension, it will automatically be saved with a .txt) ")
+    save_name = input("What should we save it as? (Don't include an extension, it will automatically be saved with a .rle) ")
     
-    # Set the name of the file to include the active directory and the .txt extension
-    save_name = os.path.join(path, "Life Data", save_name + ".txt")
-    
-    # Write to the file
-    file = open(save_name,"w+")
-    for x in range(board_height):
-        file.write(str(board[x]) + "\n")
+    # Set the name of the file to include the active directory and the .rle extension
+    save_name = os.path.join(path, "Life Data", save_name + ".rle")
+
+    # Open the file
+    file = open(save_name, "w+")
+
+    # Write the header
+    file.write("x = " + str(board_width) + ", y = " + str(board_height) + ", rule = 23/3 \n")
+
+    # Write the lines
+    for y in range(board_height):
+        for x in range(board_width):
+            if board[y][x] == 1:
+                file.write("o")
+            else:
+                file.write("b")
+        file.write("$")
         
     # Close the file
     file.close()
@@ -103,32 +113,51 @@ def import_file():
     # Ask for filename
     file_name = input("What is the file name? (don't include the extension) ")
     
-    # Update filename to include directory and .txt extension
-    file_name = os.path.join(path, "Life Data", file_name + ".txt")
+    # Update filename to include directory and .rle extension
+    file_name = os.path.join(path, "Life Data", file_name + ".rle")
     
     # Open file
     file = open(file_name, "r")
     
     # Temporary file to read each line of the file
     lines = file.readlines()
-    
+
+    # Remove comment lines
     for x in range(len(lines)):
-        # Remove the brackets and split into an array
-        lines[x].replace("[","")
-        lines[x].replace("]","")
-        row = lines[x].strip().split(",")
-        
-        for y in range(len(row)):
-            # Remove spaces and brackets, then convert to int
-            row[y] = row[y].strip(" ")
-            row[y] = row[y].strip("[")
-            row[y] = row[y].strip("]")
-            
-            row[y] = int(row[y])
-            
-        # Append row to board and board_live_counts
-        board.append(row)
-        board_live_counts.append(row)
+        if lines[x][1:] == "#":
+            lines.pop(x)
+
+    # Set the board height and width
+    lines[0] = lines[0].replace("x = ", "")
+    lines[0] = lines[0].replace("y = ", "")
+    lines[0] = lines[0].replace(",", "")
+    lines[0] = lines[0].replace(" rule = 23/3", "")
+    dimensions = lines[0].split(" ")
+    lines.pop(0)
+    board_width = int(dimensions[0])
+    board_height = int(dimensions[1])
+
+    # Set tile_size based on the height of the board
+    tile_size = int(700/board_height)
+
+    # Initiate
+    clear_board()
+    initiate()
+
+    current_line = 0
+    current_position_in_line = 0
+    
+    # Set the board to the main body lines
+    for y in range(len(lines)):
+        for x in range(len(lines[y])):
+            if lines[y][x] == "o":
+                board[current_line][current_position_in_line] = 1
+                current_position_in_line += 1
+            elif lines[y][x] == "$":
+                current_line += 1
+                current_position_in_line = 0
+            else:
+                current_position_in_line += 1
     
     # Close file
     file.close()
