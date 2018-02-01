@@ -26,7 +26,7 @@ num_beans = total_beans
 
 while (num_beans > 0):
     take = 0
-    print(str(num_beans) + " beans left.")
+    print(num_beans, " beans left.")
     if (turn == 0):
         print("My turn!")
         if (num_beans % (max_beans+1) > 0):
@@ -34,12 +34,12 @@ while (num_beans > 0):
         else:
             take = random.randint(1,max_beans)
         time.sleep(1)
-        print("I take " + str(take) + " beans.")
+        print("I take ", take, " beans.")
     elif (turn == 1):
         print("Your turn!")
         while (not(take >= 1 and take <= max_beans)):
             take = int(input("Take how many beans: "))
-        print("You take " + str(take) + " beans.")
+        print("You take ", take, " beans.")
     num_beans -= take
     if (turn ==0):
         turn = 1
