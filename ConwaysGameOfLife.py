@@ -35,9 +35,9 @@ if not preload_boolean:
     import_string = input("Do you want to import a file? ")
     
     # Compare the string to yes_synonyms
-    for x in range(len(yes_synonyms)):
-        if yes_synonyms[x] in import_string:
-            import_boolean = True
+    #for x in range(len(yes_synonyms)):
+    if yes_synonyms[x] in import_string:
+        import_boolean = True
     
     # If you're not importing, decide on board properties
     if not import_boolean:
