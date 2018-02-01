@@ -26,7 +26,7 @@ import_boolean = False
 
 # Compare should_it_preload to yes_synonyms
 for x in range(len(yes_synonyms)):
-    if yes_synonyms[x-1] in should_it_preload:
+    if yes_synonyms[x] in should_it_preload:
         preload_boolean = True
         
 # If you aren't preloading, ask if you're importing
@@ -36,7 +36,7 @@ if not preload_boolean:
     
     # Compare the string to yes_synonyms
     for x in range(len(yes_synonyms)):
-        if yes_synonyms[x-1] in import_string:
+        if yes_synonyms[x] in import_string:
             import_boolean = True
     
     # If you're not importing, decide on board properties
