@@ -22,4 +22,4 @@ with open('seattleWeather_1948-2017.csv', 'r', newline='') as seattlefile:
       totalna += 1
     else:
       totalno += 1
-print("Rained " + str(totalyes) + " out of " + str(total) + " days. (" + format(totalyes/total*100, '.2f') + "% and " + str(totalna) + "NAs)")
+print("Rained ", totalyes, " out of ", total, " days. (", format(totalyes/total*100, '.2f'), "% and ", str(totalna), " NAs)")
