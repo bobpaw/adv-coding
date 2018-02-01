@@ -10,6 +10,7 @@ import pygame
 import math as m
 import os
 
+correct_int = False
 # Find the current directory
 path = os.path.dirname(__file__)
 
@@ -35,15 +36,31 @@ if not preload_boolean:
     import_string = input("Do you want to import a file? ")
     
     # Compare the string to yes_synonyms
-    for x in range(len(yes_synonyms)):
-        if yes_synonyms[x] in import_string:
-            import_boolean = True
+    if import_string in yes_synonyms:
+        import_boolean = True
     
     # If you're not importing, decide on board properties
     if not import_boolean:
-        board_width = int(input("What should the board width be? "))
-        board_height = int(input("What should the board height be? "))
-        tile_size = int(input("How big is each tile? "))
+        while not correct_int:
+            try:
+                board_width = int(input("What should the board width be? "))
+                correct_int = True
+            except ValueError:
+                print("Integer value required.")
+        correct_int = False
+        while not correct_int:
+            try:
+                board_height = int(input("What should the board height be? "))
+                correct_int = True
+            except ValueError:
+                print("Integer value required.")
+        correct_int = False
+        while not correct_int:
+            try:
+                tile_size = int(input("How big is each tile? "))
+                correct_int = True
+            except ValueError:
+                print("Integer value required.")
 
 # Defines board and board_live_counts arrays
 board = []
@@ -438,6 +455,9 @@ while True:
             # Run if you press s, then run save_state function
             if event.key == pygame.K_s:
                 save_state()
+            if event.key == pygame.K_q:
+                pygame.quit()
+                quit()
         
         # Run if you clicked the mouse
         if event.type == pygame.MOUSEBUTTONDOWN:
