@@ -25,10 +25,10 @@ preload_boolean = False
 import_boolean = False
 
 # Compare should_it_preload to yes_synonyms
-for x in range(len(yes_synonyms)):
-    if yes_synonyms[x] in should_it_preload:
-        preload_boolean = True
-        
+# for x in range(len(yes_synonyms)):
+if should_it_preload in yes_synonyms:
+    preload_boolean = True
+
 # If you aren't preloading, ask if you're importing
 if not preload_boolean:
     # Ask if you wan to import
