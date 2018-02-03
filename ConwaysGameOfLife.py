@@ -15,7 +15,7 @@ correct_int = False
 path = os.path.dirname(__file__)
 
 # If the LifeData file doesn't exist, make it
-if not os.path.exist(os.path.join(path, "LifeData")):
+if not os.path.exists(os.path.join(path, "LifeData")):
     os.makedirs(os.path.join(path, "LifeData"))
 
 # Decides options based on user text inputs
