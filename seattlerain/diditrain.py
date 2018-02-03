@@ -2,6 +2,7 @@
 
 ##
 ## Print percent of days with recorded rainfall, using CSV file
+## Python 3
 ## Author: Aiden Woodruff <aiden.woodruff@gmail.com>
 ##
 

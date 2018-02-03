@@ -1,5 +1,5 @@
 ##
 ## Purpose of file
-## What to run with (Mostly when it's Python)
-## Author name <author@email.com>
+## What to run with (Mostly used when it's Python), other dependencies, ...
+## Author: name <author@email.com>
 ##

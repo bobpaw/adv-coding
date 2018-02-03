@@ -2,6 +2,7 @@
 
 ##
 ## Make matplotlib graph from data, taking total inches of rain per year
+## Uses Python 3, matplotlib, pandas, numpy
 ## Author: Aiden Woodruff <aiden.woodruff@gmail.com>
 ##
 

@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
 ##
-## Reads file made by the associated `csvdictwrite.py` file and prints
+## Reads file made by the associated `csvdictwrite.py` file and prints rows
+## Python 3
 ## Author: Aiden Woodruff <aiden.woodruff@gmail.com>
 ##
 

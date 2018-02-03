@@ -2,6 +2,7 @@
 
 ##
 ## Write data to file to be read by associated reader
+## Python 3
 ## Author: Aiden Woodruff <aiden.woodruff@gmail.com
 ##
 

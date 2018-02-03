@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
 ##
-## Reverse inputted text. Run with Python 3.
+## Reverse inputted text.
+## Python 3
 ## Author: Aiden Woodruff <aiden.woodruff@gmail.com>
 ##
 

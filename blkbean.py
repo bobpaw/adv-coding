@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 ##
-## Black bean game. Give launching permissions and execute or execute
-## with Python3.
+## Black bean game.
+## Rus with Python3.
 ## Author: Aiden Woodruff <aiden.woodruff@gmail.com>
 ##
 
@@ -12,11 +12,15 @@ import time
 print("Whoever takes the last bean wins")
 total_beans = int(input("How many total beans: "))
 max_beans = int(input("Max beans per turn: "))
-#turn_s = input("Would you like to go first? (Y/N): ")
-#if (turn_s == "Y" or turn_s == "y"):
-#    turn = 1
-#else:
-#    turn = 0
+
+## Disabled so computer always wins
+# turn_s = input("Would you like to go first? (Y/N): ")
+# if (turn_s == "Y" or turn_s == "y"):
+#     turn = 1
+# else:
+#     turn = 0
+
+
 if total_beans % (max_beans+1) == 0:
     turn = 1
 else:
