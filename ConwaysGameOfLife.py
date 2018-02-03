@@ -1,6 +1,6 @@
 ##
 ## A version of Conway's Game of Life (a cell replication game) in Pygame
-## Run with python 3
+## Python 3, pygame
 ## Author: Jason Kolbly <jason@rscheme.org>
 ##
 
