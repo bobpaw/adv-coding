@@ -14,6 +14,10 @@ correct_int = False
 # Find the current directory
 path = os.path.dirname(__file__)
 
+# If the LifeData file doesn't exist, make it
+if not os.path.exist(os.path.join(path, "LifeData")):
+    os.makedirs(os.path.join(path, "LifeData"))
+
 # Decides options based on user text inputs
 should_it_preload = input("Do you want to load a premade object? ")
 should_it_preload = should_it_preload.lower()
@@ -78,7 +82,7 @@ def save_state():
     save_name = input("What should we save it as? (Don't include an extension, it will automatically be saved with a .rle) ")
     
     # Set the name of the file to include the active directory and the .rle extension
-    save_name = os.path.join(path, "Life Data", save_name + ".rle")
+    save_name = os.path.join(path, "LifeData", save_name + ".rle")
 
     # Open the file
     file = open(save_name, "w+")
@@ -131,7 +135,7 @@ def import_file():
     file_name = input("What is the file name? (don't include the extension) ")
     
     # Update filename to include directory and .rle extension
-    file_name = os.path.join(path, "Life Data", file_name + ".rle")
+    file_name = os.path.join(path, "LifeData", file_name + ".rle")
     
     # Open file
     file = open(file_name, "r")
@@ -302,8 +306,8 @@ def initiate():
     screen = pygame.display.set_mode(size)
     pygame.display.set_caption("PAUSED")
 
-    # Set icon, only uncomment if you have the icon.png in "Life Data" in the file one deeper than this one
-    #icon_name = os.path.join(path, "Life Data", "icon.png")
+    # Set icon, only uncomment if you have the icon.png in "LifeData" in the file one deeper than this one
+    #icon_name = os.path.join(path, "LifeData", "icon.png")
     #icon = pygame.image.load(icon_name)
     #pygame.display.set_icon(icon)
 
@@ -455,6 +459,8 @@ while True:
             # Run if you press s, then run save_state function
             if event.key == pygame.K_s:
                 save_state()
+
+            # Run if you press q, then quit the game
             if event.key == pygame.K_q:
                 pygame.quit()
                 quit()
