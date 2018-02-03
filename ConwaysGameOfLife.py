@@ -88,7 +88,7 @@ def save_state():
     file = open(save_name, "w+")
 
     # Write the header
-    file.write("x = " + str(board_width) + ", y = " + str(board_height) + ", rule = 23/3 \n")
+    file.write("x = " + str(board_width) + ", y = " + str(board_height) + ", rule = B3/S23 \n")
 
     # Write the lines
     for y in range(board_height):
@@ -144,15 +144,14 @@ def import_file():
     lines = file.readlines()
 
     # Remove comment lines
-    for x in range(len(lines)):
-        if lines[x][1:] == "#":
-            lines.pop(x)
-
+    while lines[0][0] == "#":
+        lines.pop(0)
+    
     # Set the board height and width
     lines[0] = lines[0].replace("x = ", "")
     lines[0] = lines[0].replace("y = ", "")
     lines[0] = lines[0].replace(",", "")
-    lines[0] = lines[0].replace(" rule = 23/3", "")
+    lines[0] = lines[0].replace(" rule = B3/S23", "")
     dimensions = lines[0].split(" ")
     lines.pop(0)
     board_width = int(dimensions[0])
@@ -167,27 +166,42 @@ def import_file():
 
     current_line = 0
     current_position_in_line = 0
+    run_length = 1
+    computing_run_length = False
+    finished = False
     
     # Set the board to the main body lines
     for y in range(len(lines)):
+        if finished:
+            break
         for x in range(len(lines[y])):
-            if lines[y][x] == "o":
-                board[current_line][current_position_in_line] = 1
-                current_position_in_line += 1
-            elif lines[y][x] == "$":
-                current_line += 1
-                current_position_in_line = 0
-            else:
-                current_position_in_line += 1
+            if finished:
+                break
+            try:
+                if computing_run_length:
+                    run_length = int(str(run_length) + lines[y][x])
+                else:
+                    run_length = int(lines[y][x])
+                computing_run_length = True
+            except ValueError:
+                computing_run_length = False
+                if lines[y][x] == "o":
+                    for i in range(run_length):
+                        board[current_line][current_position_in_line] = 1
+                        current_position_in_line += 1
+                elif lines[y][x] == "$":
+                    current_line += 1
+                    current_position_in_line = 0
+                elif lines[y][x] == "!":
+                    finished = True
+                elif lines[y][x] == "b":
+                    for i in range(run_length):
+                        board[current_line][current_position_in_line] = 0
+                        current_position_in_line += 1
+                run_length = 1
     
     # Close file
     file.close()
-
-    # Set board height and board width, then tile size based on that
-    board_height = len(board)
-    for x in range(len(board)):
-        board_width = len(board[x])
-    tile_size = int(700/board_height)
     
     # Start up the game
     initiate()
