@@ -3,6 +3,8 @@
 ## Author: Jason Kolbly <jason@rscheme.org>
 ##
 
+from time import sleep
+
 print ("Beans are cool!!!")
 
 # Computer's turn
@@ -26,6 +28,7 @@ def player_turn():
     print ("Beans left: " + str(number_beans))
     if number_beans < 0:
         print ("You lose. Sucks to suck.")
+        sleep(3)
         return False
     computer_turn()
 
