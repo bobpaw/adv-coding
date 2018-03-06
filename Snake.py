@@ -44,17 +44,16 @@ class player():
         if [new_x,new_y] in self.history:
             playing = False
             return False
+        elif new_x < 0 or new_y < 0 or new_x == total_tiles or new_y == total_tiles:
+            playing = False
+            return False
         else:
             if new_x >= 0 and new_x < total_tiles:
                 self.x = new_x
-            elif new_x < 0:
-                self.x = total_tiles-1
             else:
                 self.x = 0
             if new_y >= 0 and new_y < total_tiles:
                 self.y = new_y
-            elif new_y < 0:
-                self.y = total_tiles-1
             else:
                 self.y = 0
         if (self.x == pellet[0] and self.y == pellet[1]) or pellet in self.history:
