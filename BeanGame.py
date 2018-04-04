@@ -23,12 +23,15 @@ def player_turn():
     global number_beans
     take = 0
     while (not(take >= 1 and take <= number_pickable)):
-        take = int(input("How many do you want to take? It has to be from 1 to " + str(number_pickable) + " "))
+        try:
+            take = int(input("How many do you want to take? It has to be from 1 to " + str(number_pickable) + " "))
+        except ValueError:
+            print("Please make it an integer!")
     number_beans -= take
     print ("Beans left: " + str(number_beans))
     if number_beans < 0:
         print ("You lose. Sucks to suck.")
-        sleep(3)
+        sleep(1)
         return False
     computer_turn()
 
@@ -36,9 +39,16 @@ def player_turn():
 number_beans = 0
 number_pickable = 0
 while (not(number_beans > 1)):
-    number_beans = int(input("How many beans do we want? (Input a number more than 1) "))
+    try:
+        number_beans = int(input("How many beans do we want? (Input a number more than 1) "))
+    except ValueError:
+        print("Dear lord man, please make it an integer.")
 while (not(number_pickable < number_beans and number_pickable > 0)):
-    number_pickable = int(input("How many can we pick? (Input a number less than the first one) "))
+    try:
+        number_pickable = int(input("How many can we pick? (Input a number less than the first one) "))
+    except ValueError:
+        print("IF YOU DON'T MAKE IT AN INTEGER I WILL TELL YOUR FATHER!")
+
 
 # Test if number_beans and number_pickable are right values, then start
 if number_beans > 0 and number_pickable > 0 and number_beans > number_pickable:
@@ -55,3 +65,5 @@ else:
     print ("I'll go first")
     computer_turn()
     start = True
+
+quit()
