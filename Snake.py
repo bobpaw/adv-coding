@@ -7,6 +7,13 @@
 import pygame
 from random import randint
 
+yes_synonyms = ["y", "yes", "sure", "okay", "fine", "affirmative", "all right", "very well", "of course", "by all means", "certainly", "absolutely", "indeed", "right", "agreed", "roger", "ok", "yeah", "yep", "yup", "okey-dokey", "yea", "aye"]
+
+wrap_around = False
+wrap_string = input("Do the walls wrap around? ")
+if wrap_string in yes_synonyms:
+    wrap_around = True
+
 white = (255,255,255)
 black = (0,0,0)
 green = (0,255,0)
@@ -39,22 +46,27 @@ class player():
         global pellet
         global playing
         global delay
+        global wrap_around
         
         self.history.append([self.x,self.y])
         if [new_x,new_y] in self.history:
             playing = False
             return False
-        elif new_x < 0 or new_y < 0 or new_x == total_tiles or new_y == total_tiles:
+        elif (not wrap_around) and (new_x < 0 or new_y < 0 or new_x == total_tiles or new_y == total_tiles):
             playing = False
             return False
         else:
             if new_x >= 0 and new_x < total_tiles:
                 self.x = new_x
-            else:
+            elif wrap_around and new_x < 0:
+                self.x = total_tiles-1
+            elif wrap_around and new_x >= total_tiles:
                 self.x = 0
             if new_y >= 0 and new_y < total_tiles:
                 self.y = new_y
-            else:
+            elif wrap_around and new_y < 0:
+                self.y = total_tiles-1
+            elif wrap_around and new_y >= total_tiles:
                 self.y = 0
         if (self.x == pellet[0] and self.y == pellet[1]) or pellet in self.history:
             self.length += 1
